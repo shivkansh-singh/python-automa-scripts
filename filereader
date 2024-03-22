@@ -1,0 +1,29 @@
+#!/usr/bin/env python3.9
+ 
+import argparse
+import sys
+
+#This is a simple CLI utility like cat command
+#purpose is to read a file
+
+parser = argparse.ArgumentParser(description="Simple Python CLI for file reading", prog="filereader",epilog="Created by Networknuts")
+
+parser.add_argument("filename",help="The name of the file to read")
+parser.add_argument("--limit","-l",type=int, help= "The number of lines to read")
+parser.add_argument("--version","-v",action="version",version="1.0 by Shivkansh")
+
+args = parser.parse_args()
+
+try:
+    f = open(args.filename)
+    limit = args.limit
+except FileNotFoundError:
+    print("Error: File Not Found.")
+    sys.exit(1)
+else:
+    with f:
+        lines=f.readlines()
+        if limit:
+            lines = lines[0:limit]
+        for line in lines:
+            print(line.strip())
